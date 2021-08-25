@@ -6,3 +6,6 @@
 - app stores all "todos" in browser's local storage,
 - all "todos" are restored when user visits the page again,
 - dark mode included.
+
+**DEMO:**
+https://filipjuszczak.github.io/javascript-todo-list/
