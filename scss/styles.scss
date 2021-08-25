@@ -51,7 +51,8 @@ body {
         @include input;
         border: 2px solid #8f94fb;
         font-family: $fontFamily;
-        transition: 0.1s border linear, 1s background-color linear;
+        transition: 0.1s border linear, 1s background-color linear,
+          1s color linear;
 
         &::placeholder {
           color: #a0a0a0;
@@ -313,6 +314,7 @@ body.dark-mode {
     .form__wrapper {
       .form {
         .form__input {
+          color: #dddddd;
           background-color: #3b3b3b;
 
           &::placeholder {
