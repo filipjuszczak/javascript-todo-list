@@ -1,0 +1,501 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import '_mixins.scss';
+
+$fontFamily: 'Roboto Mono', monospace;
+$transitionBgc: 1s background-color linear;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $fontFamily;
+  font-size: 16px;
+  transition: $transitionBgc;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .title {
+    background: -webkit-linear-gradient(#4e54c8, #8f94fb);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 1.05rem;
+    color: #464646;
+  }
+
+  .form__wrapper {
+    width: 90%;
+    margin-bottom: 1rem;
+
+    .form {
+      width: 100%;
+
+      .form__input {
+        @include input;
+        border: 2px solid #8f94fb;
+        font-family: $fontFamily;
+        transition: 0.1s border linear, 1s background-color linear;
+
+        &::placeholder {
+          color: #a0a0a0;
+          transform: 1s color linear;
+        }
+
+        &:hover,
+        &:focus {
+          outline: none;
+          border: 2px solid #5760ff;
+        }
+      }
+
+      .form__submit {
+        @include input;
+        border: none;
+        font-family: $fontFamily;
+        text-transform: capitalize;
+        letter-spacing: 0.15rem;
+        background: #8f94fb;
+        color: white;
+        font-weight: bold;
+        position: relative;
+        transition: 0.1s background linear;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:hover,
+        &:focus {
+          outline: none;
+          background: #5760ff;
+        }
+      }
+    }
+  }
+
+  .todos__wrapper {
+    width: 90%;
+    height: 30vh;
+    display: flex;
+    margin-bottom: 2rem;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    .todos__todo {
+      width: 90%;
+      height: 15%;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      .todos__todo-title {
+        flex: 1;
+        color: #464646;
+        width: 50%;
+        word-wrap: break-word;
+      }
+
+      .todos__todo-delete {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .fa-edit {
+          font-size: 1.5rem;
+          color: #8f94fb;
+          margin-right: 0.8rem;
+          transition: 0.1s color linear;
+
+          &:hover {
+            cursor: pointer;
+            color: #5760ff;
+          }
+        }
+
+        .fa-times {
+          font-size: 2rem;
+          color: rgb(255, 84, 84);
+
+          &:hover {
+            cursor: pointer;
+            color: rgb(255, 32, 32);
+          }
+        }
+      }
+    }
+  }
+
+  .modal {
+    display: none;
+
+    .modal__error {
+      display: none;
+    }
+  }
+
+  .modal.active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .modal__error.active {
+      display: block;
+      color: #ff4848;
+      margin-bottom: 2rem;
+    }
+
+    .modal__form-input {
+      @include input;
+      border: 2px solid #8f94fb;
+      font-family: $fontFamily;
+      transition: 0.1s border linear;
+
+      &::placeholder {
+        color: #a0a0a0;
+      }
+
+      &:hover,
+      &:focus {
+        outline: none;
+        border: 2px solid #5760ff;
+      }
+    }
+
+    .modal__form-submit {
+      @include input;
+      border: none;
+      font-family: $fontFamily;
+      text-transform: capitalize;
+      letter-spacing: 0.15rem;
+      background: #8f94fb;
+      color: white;
+      font-weight: bold;
+      position: relative;
+      transition: 0.1s background linear;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:hover,
+      &:focus {
+        outline: none;
+        background: #5760ff;
+      }
+    }
+
+    .modal__form-cancel {
+      @include input;
+      border: none;
+      font-family: $fontFamily;
+      text-transform: capitalize;
+      letter-spacing: 0.15rem;
+      background: #ff4848;
+      color: white;
+      font-weight: bold;
+      position: relative;
+      transition: 0.1s background linear;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:hover,
+      &:focus {
+        outline: none;
+        background: #ff1818;
+      }
+    }
+  }
+
+  .dark-mode__wrapper {
+    width: 90%;
+
+    .dark-mode__button {
+      .fa-adjust {
+        float: right;
+        font-size: 2rem;
+        color: #8f94fb;
+
+        transition: 0.1s color linear;
+
+        &:hover {
+          cursor: pointer;
+          color: #5760ff;
+        }
+      }
+    }
+  }
+
+  .start {
+    animation: rotateLeft 0.8s forwards;
+  }
+
+  .spin {
+    animation: rotateRight 0.8s forwards;
+  }
+
+  @keyframes rotateLeft {
+    0% {
+      transform: rotate(180deg);
+    }
+    80% {
+      transform: rotate(-20deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes rotateRight {
+    0% {
+      transform: rotate(0deg);
+    }
+    80% {
+      transform: rotate(200deg);
+    }
+    100% {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.dark-mode {
+  background-color: #272727;
+}
+
+body.dark-mode {
+  .wrapper {
+    .form__wrapper {
+      .form {
+        .form__input {
+          background-color: #3b3b3b;
+
+          &::placeholder {
+            color: #dddddd;
+          }
+        }
+      }
+    }
+
+    .todos__wrapper {
+      &::-webkit-scrollbar-track {
+        background: #818181;
+        border-radius: 0.5rem;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgb(92, 92, 92);
+        border-radius: 0.5rem;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    }
+
+    .description {
+      color: #dddddd;
+    }
+
+    .todos__wrapper {
+      .todos__todo-title {
+        color: #dddddd;
+      }
+    }
+  }
+}
+
+@media (min-width: 375px) {
+  .wrapper {
+    .description {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+@media (min-width: 425px) {
+  .wrapper {
+    .form__wrapper {
+      .form {
+        .form__input,
+        .form__submit {
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    width: 70vw;
+    margin: 0 auto;
+
+    .todos__wrapper {
+      .todos__todo {
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .wrapper {
+    width: 70vw;
+
+    .description {
+      width: 80%;
+    }
+
+    .form__wrapper {
+      .form {
+        .form__input {
+          width: 60%;
+        }
+
+        .form__submit {
+          width: 30%;
+        }
+      }
+    }
+
+    .todos__wrapper {
+      width: 60%;
+      .todos__todo {
+        width: 85%;
+      }
+    }
+
+    .dark-mode__wrapper {
+      width: 60%;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .wrapper {
+    width: 50vw;
+  }
+}
+
+@media (min-width: 2560px) {
+  .wrapper {
+    width: 50vw;
+
+    .title {
+      font-size: 4rem;
+    }
+
+    .description {
+      font-size: 2rem;
+    }
+
+    .form__wrapper {
+      .form {
+        .form__input {
+          width: 50%;
+          font-size: 2rem;
+        }
+
+        .form__submit {
+          width: 15%;
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .todos__wrapper {
+      width: 50%;
+      .todos__todo {
+        width: 85%;
+        margin-bottom: 2.5rem;
+
+        .todos__todo-title {
+          font-size: 2rem;
+        }
+
+        .todos__todo-delete {
+          .fa-edit {
+            font-size: 2.5rem;
+          }
+
+          .fa-times {
+            font-size: 3rem;
+          }
+        }
+      }
+    }
+
+    .modal {
+      .modal__error-1,
+      .modal__error-2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    .modal.active {
+      .modal__form-input,
+      .modal__form-submit,
+      .modal__form-cancel {
+        font-size: 2.5rem;
+      }
+    }
+
+    .dark-mode__wrapper {
+      width: 50%;
+
+      .dark-mode__button {
+        .fa-adjust {
+          font-size: 3rem;
+        }
+      }
+    }
+  }
+}
